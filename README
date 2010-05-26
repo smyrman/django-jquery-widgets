@@ -7,10 +7,10 @@ to come with suggestions though.
 
 Installation:
   Using pip:
-  - pip -e git://github.com/smyrman/django-jquery-widgets.git#egg=jquery_widgets
+  - pip -e git://github.com/smyrman/django-jquery-widgets.git#egg=django-jquery-widgets
 
   Usin pip and virtualenv:
-  - pip -E path/to/env -e git://github.com/smyrman/django-jquery-widgets.git#egg=jquery_widgets
+  - pip -E path/to/env -e git://github.com/smyrman/django-jquery-widgets.git#egg=django-jquery-widgets
 
   The normal download and '$ python setup.py install' procedure will also work.
 

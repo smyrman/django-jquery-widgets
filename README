@@ -1,4 +1,4 @@
-NOTE: This django-app wass created to make it easier for myself to include
+NOTE: This django-app was created to make it easier for myself to include
 extra functionallety in some of my django projects. It contains a very small
 set of widgets (currently only one), and what widgets are included in the
 future are currently only determined by my own personal needs. Do not hesitate

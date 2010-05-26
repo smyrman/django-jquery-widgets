@@ -1,0 +1,35 @@
+NOTE: This django-app wass created to make it easier for myself to include
+extra functionallety in some of my django projects. It contains a very small
+set of widgets (currently only one), and what widgets are included in the
+future are currently only determined by my own personal needs. Do not hesitate
+to come with suggestions though.
+
+
+Installation:
+  Using pip:
+  - pip -e git://github.com/smyrman/django-jquery-widgets.git
+
+  Usin pip and virtualenv:
+  - pip -E path/to/env -e git://github.com/smyrman/django-jquery-widgets.git
+
+  The normal download and '$ python setup.py install' procedure will also work.
+
+  Then, in your django project:
+    - add 'jquery_widgets' to your settings.INSTALLED_APPS
+    - run 'python manage.py syncdb'. If you use a Unix flavoured OS, this will
+      create a symlink to '<path>/jquery_widgets/media', in your MEDIA_ROOT.
+      The symlink will be named: 'jquery_widgets'.
+    - jQuery is included with django's contrib.admin app since Django version
+      1.2. If you use a version of Django older them 1.2 (or if you do not use
+      the django admin), make sure a recent version of jQury is available in
+      your MEDIA_ROOT as 'js/jquery.min.js' Alternativly, you can configure
+      JQUERY_URL in your settings.
+
+
+Included widgets:
+  ForeignKeySearchInput - An ajax auto-complete widget that replaces
+    the normal select input.
+
+Included for the admin:
+  ExtendedModelAdmin - An extension of django.admin.ModelAdin that make it easy
+    to use the included widgets in the admin view.

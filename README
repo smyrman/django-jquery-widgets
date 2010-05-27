@@ -15,11 +15,17 @@ Installation:
   The normal download and '$ python setup.py install' procedure will also work.
 
   Then, in your django project:
-    - add 'jquery_widgets' to your settings.INSTALLED_APPS
-    - run 'python manage.py syncdb'. If you use a Unix flavoured OS, this will
-      create a symlink to '<path>/jquery_widgets/media', in your MEDIA_ROOT.
-      The symlink will be named: 'jquery_widgets'.
-    - jQuery is included with django's contrib.admin app since Django version
+    - Add 'jquery_widgets' to your settings.INSTALLED_APPS
+
+    - Issue 'python manage.py syncdb':
+
+      If you use a Unix flavoured OS, this will create a symlink to
+      '<path>/jquery_widgets/media', in your MEDIA_ROOT.  The symlink will be
+      named: 'jquery_widgets'.
+
+    - Include jQuery:
+
+      jQuery is included with Django's contrib.admin app since Django version
       1.2. If you use a version of Django older them 1.2 (or if you do not use
       the django admin), make sure a recent version of jQury is available in
       your MEDIA_ROOT as 'js/jquery.min.js' Alternativly, you can configure
@@ -33,3 +39,14 @@ Included widgets:
 Included for the admin:
   ExtendedModelAdmin - An extension of django.admin.ModelAdin that make it easy
     to use the included widgets in the admin view.
+
+    Example usage:
+    from jquery_widgets.admin import ExtendedModelAdmin
+    from myapp.models import MyModel
+
+    class MyModelAdmin(ExtendedModelAdmin):
+        ...
+	# Use the ForeignKeySearchInput widget for the field 'user'. Let the
+	# search_fields be 'username' and 'email':
+	related_search_fields = {'user': ('username', 'email'),}
+

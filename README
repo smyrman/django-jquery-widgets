@@ -46,7 +46,7 @@ Included for the admin:
 
     class MyModelAdmin(ExtendedModelAdmin):
         ...
-	# Use the ForeignKeySearchInput widget for the field 'user'. Let the
-	# search_fields be 'username' and 'email':
-	related_search_fields = {'user': ('username', 'email'),}
+    # Use the ForeignKeySearchInput widget for the field 'user'. Let the
+    # search_fields be 'username' and 'email':
+    related_search_fields = {'user': ('username', 'email'),}
 

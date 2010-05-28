@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.utils.encoding import smart_str
 
 
-def fk_search(request, q):
+def fk_search(request, q=None):
 	"""Searches in the fields of the given related model and returns the
 	result as a simple string to be used by the jQuery Autocomplete plugin
 

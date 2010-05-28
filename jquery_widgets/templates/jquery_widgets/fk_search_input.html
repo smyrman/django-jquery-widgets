@@ -17,8 +17,7 @@
 	if ($('#lookup_{{name}}').val()) {
 		$('#del_{{name}}').show()
 }
-{# $('#lookup_{{name}}').autocomplete('{% url "jquery_widgets:fk-search" %}', { #}
-$('#lookup_{{name}}').autocomplete('/jqw/fk-search/', {
+$('#lookup_{{name}}').autocomplete('{% url jquery-widgets:fk-search  %}', {
 	extraParams: {
 		search_fields: '{{search_fields}}',
 		app_label: '{{app_label}}',

@@ -45,7 +45,7 @@ Do the following in your django project:
   You can configure settings.JQUERY_URL to point to your jQuery library.
 
    If the JQURY_URL setting is not given, the jquery_widgets app will default
-   to think that jQuery is located at '<MEDIA_URL>/js/jquery.min.js'.
+   to think that jQuery is located at '<MEDIA_URL>js/jquery.min.js'.
 
    Only for Django >= 1.2:
    if the JQURY_URL setting is not given and ADMIN_MEDIA_PREFIX is found in

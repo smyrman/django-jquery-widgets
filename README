@@ -1,5 +1,5 @@
-NOTE: This django-app was created to make it easier for myself to include extra
-functionallety in some of my django projects. It contains a very small set of
+NOTE: This django app was created to make it easier for myself to include extra
+functionality in some of my django projects. It contains a very small set of
 widgets (currently only one), and what widgets are included in the future are
 currently only determined by my own personal needs. Do not hesitate to come
 with suggestions though.
@@ -24,11 +24,11 @@ Installation:
 
 Project configuration:
 
-Do the following in your djangoprtoject:
+Do the following in your django project:
 
 - Add 'jquery_widgets' to your settings.INSTALLED_APPS
 
-- Add This line to your urlcinfig (replace 'jqw' with whatever you like):
+- Add This line to your urlconf (replace 'jqw' with whatever you like):
   url(r'^jqw/', include('jquery_widgets.urls', namespace='jquery-widgets')),
 
 - Include application static media (Unix):
@@ -38,15 +38,17 @@ Do the following in your djangoprtoject:
 
 - Include application static media (Windows):
    If you use Windows, you will have to manually copy the media directory form
-   jquery_widgets must manualy be copied to your MEDIA_ROOT, and renamed to
+   jquery_widgets must manually be copied to your MEDIA_ROOT, and renamed to
    jquery_widgets.
 
 - Include jQuery (for Django <= 1.2):
   jQuery is included with Django's contrib.admin app since Django version 1.2.
-  If you use a version of Django older them 1.2 (or if you do not use the
-  django admin), make sure a recent version of jQury is available in your
-  MEDIA_ROOT as 'js/jquery.min.js' Alternativly, you can configure JQUERY_URL
-  in your settings.
+  If you use a version of Django older then 1.2 (or if you do not have
+  django.contrib.admin in your INSTALLED APPS), make sure a recent version of
+  jQury is available in your MEDIA_ROOT as 'js/jquery.min.js' Alternatively,
+  you can also configure JQUERY_URL in your settings (the jquery_widgets app
+  will look for this setting before it searches for jQuery in
+  django.contrib.admin and 'js/jquery.min.js')
 
 
 

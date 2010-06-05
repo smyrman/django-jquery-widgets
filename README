@@ -19,6 +19,7 @@ Installation:
   $ pip -E path/to/env install -e git://github.com/smyrman/django-jquery-widgets.git#egg=django-jquery-widgets
 
   The normal download and '$ python setup.py install' procedure will also work.
+  So will copying the entire jquery_widgets folder into your django project.
 
 
 

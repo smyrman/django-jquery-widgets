@@ -41,14 +41,18 @@ Do the following in your django project:
    If you use Windows, you will have to manually copy the media directory form
    jquery_widgets to your MEDIA_ROOT, and renamed to jquery_widgets.
 
-- Include jQuery (for Django <= 1.2):
-  jQuery is included with Django's contrib.admin app since Django version 1.2.
-  If you use a version of Django older then 1.2 (or if you do not have
-  django.contrib.admin in your INSTALLED APPS), make sure a recent version of
-  jQury is available in your MEDIA_ROOT as 'js/jquery.min.js' Alternatively,
-  you can also configure JQUERY_URL in your settings (the jquery_widgets app
-  will look for this setting before it searches for jQuery in
-  django.contrib.admin and 'js/jquery.min.js')
+- Include jQuery (for Django <= 1.2, or 1.2 without contrib.admin installed):
+  You can configure settings.JQUERY_URL to point to your jQuery library.
+
+   If the JQURY_URL setting is not given, the jquery_widgets app will default
+   to think that jQuery is located at '<MEDIA_URL>/js/jquery.min.js'.
+
+   Only for Django >= 1.2:
+   if the JQURY_URL setting is not given and ADMIN_MEDIA_PREFIX is found in
+   your setings, the jqury_widgets will default to think that jQuery is located
+   at '<ADMIN_MEDIA_PREFIX>js/jquery.min.js'. It will also take some steps to
+   make sure that jquery is copied back into the global javascript namespace
+   (Django admin puts jQury in the 'django.jquery' namespace).
 
 
 

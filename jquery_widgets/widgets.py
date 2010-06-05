@@ -17,18 +17,19 @@ except AttributeError:
 	JQUERY_URL = 'js/jquery.min.js'
 
 	# Django 1.2 and later include a version of jQury in contrib.admin:
-	if 'django.contrib.admin' in settings.INSTALLED_APPS and\
-			not VERSION[:2] < (1, 2):
-		JQUERY_URL = settings.ADMIN_MEDIA_PREFIX + JQUERY_URL
-
-		# Django admin keep it's jQuery in the 'django.jQuey' namespace, which
-		# is kind of anoying. If we are to use jQury extensions without
-		# modifications, we must make sure jQuery is put back into the global
-		# namespace:
-		JS_BASE = (
-			settings.ADMIN_MEDIA_PREFIX+'jquery.init.js',
-			'jquery_widgets/js/django.jquery.reinit.js',
-		)
+	if VERSION[:2] >= (1, 2):
+		try:
+			JQUERY_URL = settings.ADMIN_MEDIA_PREFIX + JQUERY_URL
+			# Django admin keep it's jQuery in the 'django.jQuey' namespace,
+			# which is kind of anoying. If we are to use jQury extensions
+			# without modifications, we must make sure jQuery is put back into
+			# the global namespace:
+			JS_BASE = (
+				settings.ADMIN_MEDIA_PREFIX+'jquery.init.js',
+				'jquery_widgets/js/django.jquery.reinit.js',
+			)
+		except AttributeError:
+			JQUERY_URL = 'js/jquery.min.js'
 
 JS_BASE = (JQUERY_URL,) + JS_BASE
 

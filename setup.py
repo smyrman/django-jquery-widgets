@@ -7,6 +7,7 @@ VERSION = '0.1.1'
 setup(name='django-jquery-widgets',
 	version=VERSION,
 	description='jQuery-powered widgets and fields for Django',
+	long_description=open('README').read(),
 	author='Sindre Røkenes Myren',
 	author_email='smyrman@gmail.com',
 	url='http://github.com/smyrman/django-jquery-widgets',

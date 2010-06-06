@@ -24,7 +24,7 @@ select input.
 Included for the admin
 ----------------------
 
-*ExtendedModelAdmin*: An extension of django.admin.ModelAdin that make it easy
+*ExtendedModelAdmin*: An extension of django.admin.ModelAdmin that make it easy
 to use the included widgets in the admin view.
 
 Example usage::

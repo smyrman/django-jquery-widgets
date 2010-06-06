@@ -12,85 +12,6 @@ of widgets (currently only one), and what widgets are included in the future
 are currently only determined by my own personal needs. Do not hesitate to come
 with suggestions though.
 
-Installation
-============
-
-Using pip or easy_install to install the latest stable release:
----------------------------------------------------------------
-
-    $ sudo pip install django-jquery-widgets
-
-    $ sudo easy_install django-jquery-widgets
-
-Using pip to install dev version:
----------------------------------
-
-    $ pip install -e git://github.com/smyrman/django-jquery-widgets.git#egg=django-jquery-widgets
-
-Usin pip and virtualenv:
-------------------------
-
-    $ pip -E path/to/env install -e git://github.com/smyrman/django-jquery-widgets.git#egg=django-jquery-widgets
-
-The normal download and '$ python setup.py install' procedure will also work.
-So will copying the entire jquery_widgets folder into your django project.
-
-
-
-Project configuration
-=====================
-
-Quick guide
------------
-
-If you use a Unix-flavoured OS and Django >= 1.2, this is all the required
-steps to get django-jqury-widgets working:
-
-* Add 'jquery_widgets' to your settings.INSTALLED_APPS
-
-* Add This line to your urlconf:
-
-    url(r'^jqw/', include('jquery_widgets.urls', namespace='jquery-widgets')),
-
-* Issue
-
-    '$ python manage.py syncdb'
-
-* If Django >= 1.2 and ADMIN_MEDIA_PREFIX is configured in settings, you are done.
-
-
-Explained
----------
-
-* Add 'jquery_widgets' to your settings.INSTALLED_APPS.
-
-* Add This line to your urlconf (replace 'jqw' with whatever you like):
-   url(r'^jqw/', include('jquery_widgets.urls', namespace='jquery-widgets')),
-
-* Include application static media:
-  (Unix): Issue 'python manage.py syncdb'. This will create a symlink to
-  '<path>/jquery_widgets/media', in your MEDIA_ROOT.  The symlink will be
-  named: 'jquery_widgets'.
-
-  (Windows): You will have to manually copy the media directory form
-  jquery_widgets to your MEDIA_ROOT, and renamed it to jquery_widgets.
-
-*  Include jQuery:
-   for Django <= 1.2:
-   You can configure settings.JQUERY_URL to point to your jQuery library.
-
-   If the JQURY_URL setting is not given, the jquery_widgets app will default
-   to think that jQuery is located at '<MEDIA_URL>js/jquery.min.js'.
-
-   For Django >= 1.2:
-   if the JQURY_URL setting is not given and ADMIN_MEDIA_PREFIX is found in
-   your setings, the jqury_widgets will default to think that jQuery is located
-   at '<ADMIN_MEDIA_PREFIX>js/jquery.min.js'. It will also take some steps to
-   make sure that jquery is copied back into the global javascript namespace
-   (Django admin puts jQury in the 'django.jquery' namespace).
-
-
-
 Application content
 ===================
 
@@ -106,13 +27,101 @@ Included for the admin
 *ExtendedModelAdmin*: An extension of django.admin.ModelAdin that make it easy
 to use the included widgets in the admin view.
 
-Example usage:
+Example usage::
 
-   from jquery_widgets.admin import ExtendedModelAdmin
-   from myapp.models import MyModel
+ from jquery_widgets.admin import ExtendedModelAdmin
+ from myapp.models import MyModel
 
-   class MyModelAdmin(ExtendedModelAdmin):
-        ...
-        # Use the ForeignKeySearchInput widget for the field 'user'. Let the
-        # search_fields be 'username' and 'email':
-        related_search_fields = {'user': ('username', 'email'),}
+ class MyModelAdmin(ExtendedModelAdmin):
+      ...
+      # Use the ForeignKeySearchInput widget for the field 'user'. Let the
+      # search_fields be 'username' and 'email':
+      related_search_fields = {'user': ('username', 'email'),}
+
+
+
+Installation
+============
+
+Using pip (or easy_install):
+----------------------------
+
+Stable::
+
+  $ sudo pip install django-jquery-widgets
+
+Development::
+
+  $ sudo pip install -e git://github.com/smyrman/django-jquery-widgets.git#egg=django-jquery-widgets
+
+
+Getting the source repository:
+------------------------------
+
+If you want to include the code with your django project, rather then
+installing it to your system, you can download a recent version and copy the
+jquery_widgets folder into your django project.
+
+Git::
+
+  $ git clone git://github.com/smyrman/django-jquery-widgets.git
+
+
+
+Project configuration
+=====================
+
+Quick guide
+-----------
+
+If you use a Unix-flavoured OS and Django >= 1.2, this is all the required
+steps to get django-jqury-widgets working:
+
+1 Add 'jquery_widgets' to your settings.INSTALLED_APPS
+
+2 Add This line to your urlconf::
+
+   url(r'^jqw/', include('jquery_widgets.urls', namespace='jquery-widgets')),
+
+3 Symlink static media into your media-root by issuing:
+
+   $ python manage.py syncdb
+
+If Django >= 1.2 and ADMIN_MEDIA_PREFIX is configured in settings, you are
+done.
+
+
+Explained
+---------
+
+1 Add 'jquery_widgets' to your settings.INSTALLED_APPS.
+
+2 Add This line to your urlconf (replace 'jqw' with whatever you like)::
+
+   url(r'^jqw/', include('jquery_widgets.urls', namespace='jquery-widgets')),
+
+3 Include application static media:
+
+*Unix*:
+Issue 'python manage.py syncdb'. This will create a symlink to
+'<path>/jquery_widgets/media', in your MEDIA_ROOT.  The symlink will be named:
+'jquery_widgets'.
+
+*Windows*:
+You will have to manually copy the media directory form jquery_widgets to your
+MEDIA_ROOT, and renamed it to jquery_widgets.
+
+4 Include jQuery:
+
+*Django <= 1.2*:
+You can configure settings.JQUERY_URL to point to your jQuery library.
+
+If the JQURY_URL setting is not given, the jquery_widgets app will default
+to think that jQuery is located at '<MEDIA_URL>js/jquery.min.js'.
+
+*Django >= 1.2*:
+if the JQURY_URL setting is not given and ADMIN_MEDIA_PREFIX is found in your
+setings, the jqury_widgets will default to think that jQuery is located at
+'<ADMIN_MEDIA_PREFIX>js/jquery.min.js'. It will also take some steps to make
+sure that jquery is copied back into the global javascript namespace (Django
+admin puts jQury in the 'django.jquery' namespace).

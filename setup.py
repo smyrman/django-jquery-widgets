@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 from distutils.core import setup
-VERSION = '0.1.1'
+VERSION = '0.1.2'
 
 setup(name='django-jquery-widgets',
 	version=VERSION,

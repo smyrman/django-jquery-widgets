@@ -4,7 +4,7 @@ Django jQuery Widgets
 
 This is a pluggable app for Django (based on jQuery UI) that currently provide
 only one extra widget: ForeignKeySeatchInput. This widget provide search
-functionallety for foreingkey fields in a form.
+functionallity for foreingkey fields in a form.
 
 Application content
 ===================
@@ -67,9 +67,6 @@ Project configuration
 
 Quick guide
 -----------
-
-If you use a Unix-flavoured OS and Django >= 1.2, this is all the required
-steps to get django-jqury-widgets working:
 
 1 Add 'jquery_widgets' to your settings.INSTALLED_APPS
 

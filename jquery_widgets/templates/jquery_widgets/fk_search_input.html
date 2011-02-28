@@ -6,7 +6,7 @@
 		) no-repeat right;
 	}
 	#del_{{ name }} {
-		display: none;
+				display: none;
 	}
 </style>
 <input type="text" id="lookup_{{name}}" value="{{label}}" />
@@ -14,20 +14,42 @@
 	<img src="{{ admin_media_prefix }}img/admin/icon_deletelink.gif" />
 </a>
 <script type="text/javascript">
-	if ($('#lookup_{{name}}').val()) {
-		$('#del_{{name}}').show()
-}
-$('#lookup_{{name}}').autocomplete('{% url jquery-widgets:fk-search  %}', {
-	extraParams: {
-		search_fields: '{{search_fields}}',
-		app_label: '{{app_label}}',
-		model_name: '{{model_name}}',
-	},
-}).result(function(event, data, formatted) {
-	if (data) {
-		$('#id_{{name}}').val(data[1]);
-		$('#del_{{name}}').show();
-	}
+$(function() {
+	$("#lookup_{{name}}").autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				url: '{% url jquery-widgets:fk-search %}',
+				data: {
+					q: request.term,
+					search_fields: '{{search_fields}}',
+					app_label: '{{app_label}}',
+					model_name: '{{model_name}}'
+				},
+				success: function(data) {
+					 response(data.objects)
+				}
+			});
+		},
+		minLength: 2,
+		open: function() {
+			$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+		},
+		close: function() {
+			$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+		},
+		select : function(event, ui) {
+			 if (ui.item) {
+				$('#lookup_{{name}}').val(ui.item.label);
+				 $("#id_{{name}}").val(ui.item.val);
+				 $('#del_{{name}}').show();
+			 } else {
+				$('#lookup_{{name}}').val('');
+				$('#id_{{name}}').val('');
+				$('#del_{{name}}').hide();
+			 }
+			 return false;
+		}
+	});
 });
 $('#del_{{name}}').click(function(ele, event) {
 	$('#id_{{name}}').val('');

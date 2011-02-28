@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 from distutils.core import setup
-VERSION = '0.1.2'
+VERSION = '0.2a0'
 
 setup(name='django-jquery-widgets',
 	version=VERSION,
@@ -15,6 +15,6 @@ setup(name='django-jquery-widgets',
 	install_requires='django >= 1.1',
 	download_url='http://github.com/smyrman/django-jquery-widgets/tarball/%s'%VERSION,
 	packages=['jquery_widgets'],
-	package_data={'jquery_widgets': ['media/js/*.js', 'media/css/*.css',
+	package_data={'jquery_widgets': ['static/js/*.js', 'static/css/*.css',
 		'templates/jquery_widgets/*.html']},
 )

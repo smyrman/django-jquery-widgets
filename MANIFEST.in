@@ -1,2 +1,3 @@
-include jquery_widgets/media/js/*.js jquery_widgets/media/css/*.css
+include jquery_widgets/static/js/*.js
+jquery_widgets/static/css/*.css
 include jquery_widgets/templates/jquery_widgets/*.html

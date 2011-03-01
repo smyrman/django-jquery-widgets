@@ -1,0 +1,18 @@
+{% extends "jquery_widgets/autocomplete_input.html" %}
+
+{% block source %}
+	function(request, response) {
+		$.ajax({
+			url: '{% url jquery-widgets:fk-autocomplete %}',
+			data: {
+				q: request.term,
+				lookup_fields: '{{lookup_fields}}',
+				app_label: '{{app_label}}',
+				model_name: '{{model_name}}'
+			},
+			success: function(data) {
+				 response(data.objects)
+			}
+		});
+	}
+{% endblock %}

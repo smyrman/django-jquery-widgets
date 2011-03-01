@@ -2,9 +2,9 @@
 Django jQuery Widgets
 =====================
 
-This is a pluggable app for Django (based on jQuery UI) that currently provide
-only one extra widget: ForeignKeySeatchInput. This widget provide search
-functionallety for foreingkey fields in a form.
+This is a pluggable app for Django based on jQuery UI. The goal of this project
+is to make available a subset of jQuery UI's widgets with a decent level of
+abstraction.
 
 Application content
 ===================
@@ -12,27 +12,41 @@ Application content
 Included widgets
 ----------------
 
-*ForeignKeySearchInput*: An ajax auto-complete widget that replaces the normal
-select input.
+*AutocompleteInput*: A jQuery UI replacement for the html 4 select box input.
+
+*ForeignKeyAutocompleteInput*: A variant of the above widget that uses ajax to
+lookup choices in your database.
 
 Included for the admin
 ----------------------
 
-*ExtendedModelAdmin*: An extension of django.admin.ModelAdmin that make it easy
+*ModelAdminMixin*: An mixin for django.admin.ModelAdmin that make it easy
 to use the included widgets in the admin view.
 
 Example usage::
 
- from jquery_widgets.admin import ExtendedModelAdmin
+ from django.contrib import admin
+
+ from jquery_widgets.admin import ModelAdminMixin
  from myapp.models import MyModel
 
- class MyModelAdmin(ExtendedModelAdmin):
+ class MyModelAdmin(ModelAdminMixin, admin.ModelAdmin):
       ...
-      # Use the ForeignKeySearchInput widget for the field 'user'. Let the
-      # search_fields be 'username' and 'email':
-      related_search_fields = {'user': ('username', 'email'),}
+      # Use the ForeignKeyAutocompleteInput widget for the ForeignKey feild
+      # 'user'. Let the search_fields be 'username' and 'email'. Use the
+      # AutocompleteInput wisget for the IntegerField with choices,
+      # 'favorite_dish'.
+      autocomplete_fields = {
+        'user': ('username', 'email'),
+        'favorite_dish': self.AUTO_LOOKUP
+      }
 
+A more detailed description with examples is available in the ModelAdminMixin's
+doc string.
 
+*NB!* Make sure that you always place ModelAdminMixin **before**
+admin.ModelAdmin! If you don't do this, Python wil use admin.ModelAdmin's
+**get_forfield_for_dbfield()** method, and nothing will work for you!
 
 Installation
 ============
@@ -49,8 +63,8 @@ Development::
   $ sudo pip install -e git://github.com/smyrman/django-jquery-widgets.git#egg=django-jquery-widgets
 
 
-Getting the source repository:
-------------------------------
+Using git:
+----------
 
 If you want to include the code with your django project, rather then
 installing it to your system, you can download a recent version and copy the
@@ -67,9 +81,6 @@ Project configuration
 
 Quick guide
 -----------
-
-If you use a Unix-flavoured OS and Django >= 1.2, this is all the required
-steps to get django-jqury-widgets working:
 
 1 Add 'jquery_widgets' to your settings.INSTALLED_APPS
 

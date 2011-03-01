@@ -32,13 +32,12 @@ Example usage::
 
  class MyModelAdmin(JQWAdminMixin, admin.ModelAdmin):
       ...
-      # Use the ForeignKeyAutocompleteInput widget for the ForeignKey feild
-      # 'user'. Let the search_fields be 'username' and 'email'. Use the
-      # AutocompleteInput widget for the IntegerField with choices,
-      # 'type'.
+      # Use the ForeignKeyAutocompleteInput widget for the ForeignKey field
+      # 'user'. Let the lookup_fields be 'username' and 'email'. Use the
+      # AutocompleteInput widget for the IntegerField 'type'.
       jqw_autocomplete_fields = {
         'user': ('username', 'email'),
-        'typeh': self.LOOKUP_CHOICES
+        'type': self.LOOKUP_CHOICES
       }
 
 A more detailed description with examples is available in the JQWAdminMixin's

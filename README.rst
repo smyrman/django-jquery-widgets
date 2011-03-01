@@ -30,7 +30,7 @@ Unfinished widgets
 buttons. Note that the current implementation is kind of buggy, and it does not
 work well in the django admin.
 
-*JQWScheckboxSelect*: Same as above, but for chekboxes - probably not hard to
+*JQWCheckboxSelect*: Same as above, but for chekboxes - probably not hard to
 implement once *JQWRadioSelect* is complete.
 
 *JQWAutocompleteSelectMultiple*: Not finished.

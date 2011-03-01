@@ -136,7 +136,7 @@ Planned defaults::
  # <STATIC_ROOT>/css/jquery-ui-themes/<theme name>/style.css
 
  JQUERY_UI_THEME = {
-         'admin': 'ui-admin'       # Theme to use in django admin.
-         'default': 'ui-lightness' # Default theme for widgets.
+         'admin': 'ui-admin',       # Theme to use in django admin.
+         'default': 'ui-lightness', # Default theme for widgets.
  }
 

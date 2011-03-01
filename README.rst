@@ -37,7 +37,7 @@ Example usage::
       # AutocompleteInput widget for the IntegerField 'type'.
       jqw_autocomplete_fields = {
         'user': ('username', 'email'),
-        'type': self.LOOKUP_CHOICES
+        'type': JQWAdminMixin.LOOKUP_CHOICES
       }
 
 A more detailed description with examples is available in the JQWAdminMixin's

@@ -106,26 +106,26 @@ Project configuration
 Quick guide
 -----------
 
-1 Add 'jquery_widgets' to your settings.INSTALLED_APPS
+1. Add 'jquery_widgets' to your settings.INSTALLED_APPS
 
-2 Add This line to your urlconf::
+2. Add This line to your urlconf::
 
-   url(r'^jqw/', include('jquery_widgets.urls', namespace='jquery-widgets')),
+    url(r'^jqw/', include('jquery_widgets.urls', namespace='jquery-widgets')),
 
-Note that you are free to call the url something else then 'jqw'. The urls are
-not hardcoded in jquery_widgets!
+   Note that you are free to call the url something else then 'jqw'. The urls are
+   not hardcoded in jquery_widgets!
 
-3 The current development version workes well with Django 1.3's staticfiles
-  app. That means you can symlink or copy the static media into your
-  STATIC_ROOT (needed for production only), by issuing::
+3. The current development version workes well with Django 1.3's staticfiles
+   app. That means you can symlink or copy the static media into your
+   STATIC_ROOT (needed for production only), by issuing::
 
-   $ python manage.py -l collectstatic
+    $ python manage.py -l collectstatic
 
-Note that you need to have 'django.contrib.staticfiles' in your INSTALLED_APPS
-for the above command to work. If you want to use this version of
-django-jquery-widgets with an older version of Django then 1.3, you have to
-manually copy the files from 'jqury_widgets/static' into your MEDIA_ROOT
-folder.
+   Note that you need to have 'django.contrib.staticfiles' in your INSTALLED_APPS
+   for the above command to work. If you want to use this version of
+   django-jquery-widgets with an older version of Django then 1.3, you have to
+   manually copy the files from 'jqury_widgets/static' into your MEDIA_ROOT
+   folder.
 
 Planned configuration parameters (not jet implemented)
 ------------------------------------------------------

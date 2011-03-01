@@ -1,9 +1,13 @@
 {{rendered}}
 <style type="text/css" media="screen">
 	#lookup_{{ name }} {
+		{% if admin_icons %}
 		padding-right:16px;
-		background: url({{ admin_media_prefix }}img/admin/selector-search.gif
-		) no-repeat right;
+		background: url({{ admin_media_prefix }}img/admin/selector-search.gif) no-repeat right;
+		{% endif %}
+	}
+	ul.ui-menu li {
+		list-style-type: none;
 	}
 	#del_{{ name }} {
 				display: none;
@@ -11,7 +15,11 @@
 </style>
 <input type="text" id="lookup_{{name}}" value="{{label}}" />
 <a href="#" id="del_{{name}}">
+	{% if admin_icons %}
 	<img src="{{ admin_media_prefix }}img/admin/icon_deletelink.gif" />
+	{% else %}
+	X
+	{% endif %}
 </a>
 <script type="text/javascript">
 $(function() {
@@ -30,13 +38,6 @@ $(function() {
 				}
 			});
 		},
-		minLength: 2,
-		open: function() {
-			$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-		},
-		close: function() {
-			$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-		},
 		select : function(event, ui) {
 			 if (ui.item) {
 				$('#lookup_{{name}}').val(ui.item.label);
@@ -48,7 +49,8 @@ $(function() {
 				$('#del_{{name}}').hide();
 			 }
 			 return false;
-		}
+		},
+		minLength: 2
 	});
 });
 $('#del_{{name}}').click(function(ele, event) {

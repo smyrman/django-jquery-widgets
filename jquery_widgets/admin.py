@@ -10,6 +10,7 @@ import operator
 from django.db import models
 from django.http import HttpResponse, HttpResponseNotFound
 from django.contrib import admin
+from django.contrib.admin.options import BaseModelAdmin
 from django.utils.encoding import smart_str
 
 from jquery_widgets.widgets import *
@@ -44,42 +45,56 @@ class JQWAdminMixin(object):
 	jqw_radio_fields
 	================
 
+	WARNING: Currently works kind of crap in good in the admin!
 	Any field with a choices attribut can be listed as in 'jqw_radio_fields'
 	with entires of type::
 
-	 '<field_name>',
+	 '<field_name>': <allignment>,
+
+	Note that this syntax is identical to the the existing ModelAdmin's
+	'radio_fields'. Also note that currently, the <allignment> parameter is
+	ignored.
 
 	Example
 	-------
 	::
-	 jqw_radios_fields = (
-	     'gender',
-	 )
+	 jqw_radio_fields = {
+		 'gender': JQWAdminMixin.HORIZONTAL
+	 }
 	"""
 
 	LOOKUP_CHOICES = 1
+	HORIZONTAL = admin.HORIZONTAL
+	VERTICAL = admin.VERTICAL
 
 	def formfield_for_dbfield(self, db_field, **kwargs):
-		""" Overrides the default widget for Foreignkey fields if they are
-		specified in the related_search_fields class attribute.
-
-		"""
 		if db_field.name in self.jqw_autocomplete_fields:
 			lookup = self.jqw_autocomplete_fields[db_field.name]
 			if lookup == self.LOOKUP_CHOICES:
-				kwargs['widget'] = AutocompleteInput(
-						choices=db_field.get_choices(include_blank=False)
+				kwargs['widget'] = JQWAutocompleteSelect(
+					choices=db_field.get_choices(include_blank=False),
+					theme='ui-admin',
+					#theme=settings.JQUERY_UI_THEME['admin'],
+					use_admin_icons=True,
 				)
 			elif isinstance(db_field, models.ForeignKey):
-				kwargs['widget'] = ForeignKeyAutocompleteInput(
+				kwargs['widget'] = JQWAutocompleteFKSelect(
 					rel=db_field.rel,
-					lookup_fields=self.jqw_autocomplete_fields[db_field.name]
+					lookup_fields=self.jqw_autocomplete_fields[db_field.name],
+					theme='ui-admin',
+					#theme=settings.JQUERY_UI_THEME['admin'],
+					use_admin_icons=True,
 				)
 			elif isinstance(db_field, models.ManyToManyField):
 				# FIXME
 				pass
-		return admin.ModelAdmin.formfield_for_dbfield(self, db_field,
-				**kwargs)
+		elif db_field.name in self.jqw_radio_fields:
+			align = self.jqw_radio_fields[db_field.name]
+			kwargs['widget'] = JQWRadioSelect(
+					theme='ui-admin',
+					#theme=settings.JQUERY_UI_THEME['admin'],
+					)
+		return BaseModelAdmin.formfield_for_dbfield(self, db_field, **kwargs)
 
 
 #### Classes kept for bacward compabillity only ###
@@ -89,7 +104,9 @@ class ExtendedModelAdmin(JQWAdminMixin, admin.ModelAdmin):
 	def formfield_for_dbfield(self, db_field, **kwargs):
 		# 'related_search_fields' has been deprecated in favour of
 		# 'jqw_autocomplete_fields'.
-		self.jqw_autocomplete_fields = self.related_search_fields
+		if hasattr(self, "related_search_fields"):
+			self.jqw_autocomplete_fields = self.related_search_fields
+
 		return super(ExtendedModelAdmin, self).formfield_for_dbfield(db_field,
 				**kwargs)
 

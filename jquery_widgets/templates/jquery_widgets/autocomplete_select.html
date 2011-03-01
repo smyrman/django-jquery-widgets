@@ -1,0 +1,51 @@
+{{rendered}}
+<style type="text/css" media="screen">
+	{% if use_admin_icons %}
+	#{{id}}_jqw {
+		padding-right:16px;
+		background: url({{admin_media_prefix}}img/admin/selector-search.gif)
+		            no-repeat right;
+	}
+	{% endif %}
+	ul.ui-menu li {
+		list-style-type: none;
+	}
+	{% if value == '' %}
+	#{{id}}_delete {
+		display: none;
+	}
+	{% endif %}
+</style>
+<input{{attrs}} />
+<a href="#" id="{{id}}_delete">
+	{% if use_admin_icons %}
+	<img src="{{admin_media_prefix}}img/admin/icon_deletelink.gif" />
+	{% else %}
+	X
+	{% endif %}
+</a>
+<script type="text/javascript">
+$(function() {
+	$("#{{id}}_jqw").autocomplete({
+		source: {% block source %}{{source}}{% endblock %},
+		select: function(event, ui) {
+			 if (ui.item) {
+				 $("#{{id}}").val(ui.item.val);
+				$('#{{id}}_jqw').val(ui.item.label);
+				 $('#{{id}}_delete').show();
+			 } else {
+				$('#{{id}}').val('');
+				$('#{{id}}_jqw').val('');
+				$('#{{id}}_delete').hide();
+			 }
+			 return false;
+		},
+		minLength: {{min_length}}
+	});
+});
+$('#{{id}}_delete').click(function(ele, event) {
+	$('#{{id}}').val('');
+	$('#{{id}}_jqw').val('');
+	$('#{{id}}_delete').hide();
+});
+</script>

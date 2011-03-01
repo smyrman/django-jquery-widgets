@@ -15,10 +15,10 @@ Application content
 Included widgets
 ----------------
 
-**JQWAutocompleteSelect**: A jQuery UI replacement for the html 4 select box
+*JQWAutocompleteSelect*: A jQuery UI replacement for the html 4 select box
 input.
 
-**JQWAutocompleteFKSelect**: A variant of the above widget for ForeignKeys
+*JQWAutocompleteFKSelect*: A variant of the above widget for ForeignKeys
 only. It uses ajax to lookup choices in your database, based on *lookup
 fields* that you provide.
 
@@ -26,23 +26,23 @@ Unfinished widgets
 ------------------
 *If you want to help finish these, make a fork!*
 
-**JQWRadioSelect**: This one uses jQuery UI buttons instead of normal radio
+*JQWRadioSelect*: This one uses jQuery UI buttons instead of normal radio
 buttons. Note that the current implementation is kind of buggy, and it does not
 work well in the django admin.
 
-**JQWScheckboxSelect**: Same as above, but for chekboxes - probably not hard to
+*JQWScheckboxSelect*: Same as above, but for chekboxes - probably not hard to
 implement once *JQWRadioSelect* is complete.
 
-**JQWAutocompleteSelectMultiple**: Not finished.
+*JQWAutocompleteSelectMultiple*: Not finished.
 
-**JQWAutocompleteM2MSelecMultiple**: A version of the above widget, but for
+*JQWAutocompleteM2MSelecMultiple*: A version of the above widget, but for
 ManyToMany fields only, and with dynamic ajax searching.
 
 
 Included for the admin
 ----------------------
 
-**JQWAdminMixin**: A mixin for django.admin's ModelAdmin and InlineAdmin
+*JQWAdminMixin*: A mixin for django.admin's ModelAdmin and InlineAdmin
 classes that make it easy to use the included widgets in the admin view.
 
 Example usage::
@@ -70,7 +70,7 @@ doc string.
 *formfield_for_dbfield()* method, and nothing will work for you!
 
 
-**ExtendedModelAdmin**: This class is deprecated in favour of *JQWAdminMixin*,
+*ExtendedModelAdmin*: This class is deprecated in favour of *JQWAdminMixin*,
 but is kept for bacward compability. It allows you to use
 *foreign_key_search_fields* instead of *jqw_autocomplete_fields*.
 

@@ -43,9 +43,9 @@ Example usage::
 A more detailed description with examples is available in the JQWAdminMixin's
 doc string.
 
-*NB!* Make sure that you always place JQWAdminMixin **before**
-admin.ModelAdmin! If you don't do this, Python wil use admin.ModelAdmin's
-**get_forfield_for_dbfield()** method, and nothing will work for you!
+**NB!** Make sure that you always place *JQWAdminMixin* **before**
+*admin.ModelAdmin*! If you don't do this, Python will use admin.ModelAdmin's
+*formfield_for_dbfield()* method, and nothing will work for you!
 
 Installation
 ============

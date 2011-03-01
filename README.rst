@@ -20,31 +20,31 @@ lookup choices in your database.
 Included for the admin
 ----------------------
 
-*ModelAdminMixin*: An mixin for django.admin.ModelAdmin that make it easy
+*JQWAdminMixin*: A mixin for django.admin.ModelAdmin that make it easy
 to use the included widgets in the admin view.
 
 Example usage::
 
  from django.contrib import admin
 
- from jquery_widgets.admin import ModelAdminMixin
+ from jquery_widgets.admin import JQWAdminMixin
  from myapp.models import MyModel
 
- class MyModelAdmin(ModelAdminMixin, admin.ModelAdmin):
+ class MyModelAdmin(JQWAdminMixin, admin.ModelAdmin):
       ...
       # Use the ForeignKeyAutocompleteInput widget for the ForeignKey feild
       # 'user'. Let the search_fields be 'username' and 'email'. Use the
-      # AutocompleteInput wisget for the IntegerField with choices,
-      # 'favorite_dish'.
-      autocomplete_fields = {
+      # AutocompleteInput widget for the IntegerField with choices,
+      # 'type'.
+      jqw_autocomplete_fields = {
         'user': ('username', 'email'),
-        'favorite_dish': self.AUTO_LOOKUP
+        'typeh': self.LOOKUP_CHOICES
       }
 
-A more detailed description with examples is available in the ModelAdminMixin's
+A more detailed description with examples is available in the JQWAdminMixin's
 doc string.
 
-*NB!* Make sure that you always place ModelAdminMixin **before**
+*NB!* Make sure that you always place JQWAdminMixin **before**
 admin.ModelAdmin! If you don't do this, Python wil use admin.ModelAdmin's
 **get_forfield_for_dbfield()** method, and nothing will work for you!
 

@@ -32,21 +32,20 @@ Example usage::
 
  class MyModelAdmin(JQWAdminMixin, admin.ModelAdmin):
       ...
-      # Use the ForeignKeyAutocompleteInput widget for the ForeignKey feild
-      # 'user'. Let the search_fields be 'username' and 'email'. Use the
-      # AutocompleteInput widget for the IntegerField with choices,
-      # 'type'.
+      # Use the ForeignKeyAutocompleteInput widget for the ForeignKey field
+      # 'user'. Let the lookup_fields be 'username' and 'email'. Use the
+      # AutocompleteInput widget for the IntegerField 'type'.
       jqw_autocomplete_fields = {
         'user': ('username', 'email'),
-        'typeh': self.LOOKUP_CHOICES
+        'type': JQWAdminMixin.LOOKUP_CHOICES
       }
 
 A more detailed description with examples is available in the JQWAdminMixin's
 doc string.
 
-*NB!* Make sure that you always place JQWAdminMixin **before**
-admin.ModelAdmin! If you don't do this, Python wil use admin.ModelAdmin's
-**get_forfield_for_dbfield()** method, and nothing will work for you!
+**NB!** Make sure that you always place *JQWAdminMixin* **before**
+*admin.ModelAdmin*! If you don't do this, Python will use admin.ModelAdmin's
+*formfield_for_dbfield()* method, and nothing will work for you!
 
 Installation
 ============

@@ -14,21 +14,21 @@ from django.utils.encoding import smart_str
 
 from jquery_widgets.widgets import *
 
-__all__ = ('ModelAdminMixin', 'ExtendedModelAdmin')
+__all__ = ('JQWAdminMixin', 'ExtendedModelAdmin')
 
-class ModelAdminMixin(object):
+class JQWAdminMixin(object):
 	"""Enables you to configure jQury UI widgets in the admin.
 
-	autocomplete_fields
-	===================
+	jqw_autocomplete_fields
+	=======================
 
 	For fields of type 'ForeignKey' and 'ManyToMany', you can configure the
-	'autocomplete_fields' with entries of type::
+	'jqw_autocomplete_fields' with entries of type::
 
-	'<field_name>' : ('<lookup_field1>', '<lookup_field>'),
+	'<field_name>' : ('<lookup_field1>', '<lookup_field2>'),
 	or::
 
-	'<field_name>' : self.LOOKUP_AUTO,
+	'<field_name>' : JQWAdminMixin.LOOKUP_CHOICES,
 
 	For any other field type where you have configured 'choices', you may add
 	entires of the latest type only.
@@ -36,41 +36,44 @@ class ModelAdminMixin(object):
 	Example
 	-------
 	::
-	autocomplete_fields = {
-		'user': ('username', 'email'),
-		'group': self.LOOKUP_AUTO,
-	}
+	 jqw_autocomplete_fields = {
+	     'user': ('username', 'email'),
+	     'group': JQWAdminMixin.LOOKUP_CHOICES,
+	 }
 
-	radios_fields:
-	Any field with a choices attribut can be listed as a radios_field with
-	entires if type:
-	'<field_name>',
+	jqw_radio_fields
+	================
+
+	Any field with a choices attribut can be listed as in 'jqw_radio_fields'
+	with entires of type::
+
+	 '<field_name>',
 
 	Example
 	-------
 	::
-	radios_fields = (
-		'gender',
-	)
+	 jqw_radios_fields = (
+	     'gender',
+	 )
 	"""
 
-	LOOKUP_AUTO = 0
+	LOOKUP_CHOICES = 1
 
 	def formfield_for_dbfield(self, db_field, **kwargs):
 		""" Overrides the default widget for Foreignkey fields if they are
 		specified in the related_search_fields class attribute.
 
 		"""
-		if db_field.name in self.autocomplete_fields:
-			lookup = self.autocomplete_fields[db_field.name]
-			if lookup == self.LOOKUP_AUTO and hasattr(db_field, 'choices'):
+		if db_field.name in self.jqw_autocomplete_fields:
+			lookup = self.jqw_autocomplete_fields[db_field.name]
+			if lookup == self.LOOKUP_CHOICES:
 				kwargs['widget'] = AutocompleteInput(
-						choices=db_field.choices,
+						choices=db_field.get_choices(include_blank=False)
 				)
 			elif isinstance(db_field, models.ForeignKey):
 				kwargs['widget'] = ForeignKeyAutocompleteInput(
 					rel=db_field.rel,
-					lookup_fields=self.autocomplete_fields[db_field.name]
+					lookup_fields=self.jqw_autocomplete_fields[db_field.name]
 				)
 			elif isinstance(db_field, models.ManyToManyField):
 				# FIXME
@@ -81,12 +84,12 @@ class ModelAdminMixin(object):
 
 #### Classes kept for bacward compabillity only ###
 
-class ExtendedModelAdmin(ModelAdminMixin, admin.ModelAdmin):
+class ExtendedModelAdmin(JQWAdminMixin, admin.ModelAdmin):
 
 	def formfield_for_dbfield(self, db_field, **kwargs):
 		# 'related_search_fields' has been deprecated in favour of
-		# 'autocomplete_fields'.
-		self.autocomplete_fields = self.related_search_fields
+		# 'jqw_autocomplete_fields'.
+		self.jqw_autocomplete_fields = self.related_search_fields
 		return super(ExtendedModelAdmin, self).formfield_for_dbfield(db_field,
 				**kwargs)
 

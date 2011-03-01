@@ -5,7 +5,7 @@
 
 from django import VERSION, forms
 from django.conf import settings
-from django.utils.safestring import mark_safe
+from django.utils.safestring import mark_safe, mark_for_escaping as esc
 from django.utils.text import truncate_words
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -42,26 +42,28 @@ class AutocompleteInput(forms.HiddenInput):
 		super(AutocompleteInput, self).__init__(attrs)
 
 	def label_for_value(self, value):
-		key = self.rel.get_related_field().name
-		obj = self.rel.to._default_manager.get(**{key: value})
-		return truncate_words(obj, 14)
+		for v, label in self.choices:
+			if value == v:
+				return label
+		return value
 
 	def render(self, name, value, attrs={}):
 		rendered = super(AutocompleteInput, self).render(name, value, attrs)
-		if value:
+		if value != None:
 			value_label = self.label_for_value(value)
 		else:
 			value_label = u''
 		if len(self.choices) > 0:
-			source = u'[%s]' % u','.join((u'{"val":"%s","label":"%s"}' %
-					(i[0], i[1]) for i in self.choices))
+			source = mark_safe(u'[%s]' %
+					u','.join((u'{"val":"%s","label":"%s"}' %
+					(esc(i[0]), esc(i[1])) for i in self.choices)))
 		else:
 			source = u''
 
 		d = {
 			'rendered': rendered,
 			'name': name,
-			'value': display_value,
+			'value': value_label,
 			'source': source,
 			'use_admin_icons': self.use_admin_icons,
 			'admin_media_prefix': settings.ADMIN_MEDIA_PREFIX,
@@ -81,17 +83,22 @@ class ForeignKeyAutocompleteInput(AutocompleteInput):
 		self.lookup_fields = lookup_fields
 		super(ForeignKeyAutocompleteInput, self).__init__(attrs, **kwargs)
 
+	def label_for_value(self, value):
+		key = self.rel.get_related_field().name
+		obj = self.rel.to._default_manager.get(**{key: value})
+		return truncate_words(obj, 14)
+
 	def render(self, name, value, attrs={}):
 		rendered = super(AutocompleteInput, self).render(name, value, attrs)
 		if value:
-			display_value = self.label_for_value(value)
+			value_label = self.label_for_value(value)
 		else:
-			display_value = u''
+			value_label = u''
 
 		d = {
 			'rendered': rendered,
 			'name': name,
-			'value': display_value,
+			'value': value_label,
 			'lookup_fields': ','.join(self.lookup_fields),
 			'model_name': self.rel.to._meta.module_name,
 			'app_label': self.rel.to._meta.app_label,

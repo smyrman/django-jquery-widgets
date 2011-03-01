@@ -3,8 +3,8 @@ Django jQuery Widgets
 =====================
 
 This is a pluggable app for Django based on jQuery UI. The goal of this project
-is to make available a subset of jQuery UI's widgets with a decent level of
-abstraction.
+is to make available a subset of jQuery UI's widgets for django programmers,
+using a decent level of abstraction.
 
 Application content
 ===================
@@ -74,8 +74,6 @@ Git::
 
   $ git clone git://github.com/smyrman/django-jquery-widgets.git
 
-
-
 Project configuration
 =====================
 
@@ -88,16 +86,17 @@ Quick guide
 
    url(r'^jqw/', include('jquery_widgets.urls', namespace='jquery-widgets')),
 
-Note that you are free to call the url something else then 'jqw'.
+Note that you are free to call the url something else then 'jqw'. The urls are
+not hardcoded in jquery_widgets!
 
-3 The current version workes well with Django 1.3's staticfiles app. That means
-  you can symlink or copy the static media into your STATIC_ROOT (needed for
-  production only), by issuing::
+3 The current development version workes well with Django 1.3's staticfiles
+  app. That means you can symlink or copy the static media into your
+  STATIC_ROOT (needed for production only), by issuing::
 
    $ python manage.py [-l] collectstatic
 
 Note that you need to have 'django.contrib.staticfiles' in your INSTALLED_APPS
-for the above command to work. If you wan't to use this version of
+for the above command to work. If you want to use this version of
 django-jquery-widgets with an older version of Django then 1.3, you have to
 manually copy the files from 'jqury_widgets/static' into your MEDIA_ROOT
 folder.

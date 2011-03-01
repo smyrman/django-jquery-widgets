@@ -6,22 +6,44 @@ This is a pluggable app for Django based on jQuery UI. The goal of this project
 is to make available a subset of jQuery UI's widgets for django programmers,
 using a decent level of abstraction.
 
+This is the documentation for the development version. There are significant
+changes between this version and the latest release.
+
 Application content
 ===================
 
 Included widgets
 ----------------
 
-*AutocompleteInput*: A jQuery UI replacement for the html 4 select box input.
+**JQWAutocompleteSelect**: A jQuery UI replacement for the html 4 select box
+input.
 
-*ForeignKeyAutocompleteInput*: A variant of the above widget that uses ajax to
-lookup choices in your database.
+**JQWAutocompleteFKSelect**: A variant of the above widget for ForeignKeys
+only. It uses ajax to lookup choices in your database, based on *lookup
+fields* that you provide.
+
+Unfinished widgets
+------------------
+*If you want to help finish these, make a fork!*
+
+**JQWRadioSelect**: This one uses jQuery UI buttons instead of normal radio
+buttons. Note that the current implementation is kind of buggy, and it does not
+work well in the django admin.
+
+**JQWScheckboxSelect**: Same as above, but for chekboxes - probably not hard to
+implement once *JQWRadioSelect* is complete.
+
+**JQWAutocompleteSelectMultiple**: Not finished.
+
+**JQWAutocompleteM2MSelecMultiple**: A version of the above widget, but for
+ManyToMany fields only, and with dynamic ajax searching.
+
 
 Included for the admin
 ----------------------
 
-*JQWAdminMixin*: A mixin for django.admin.ModelAdmin that make it easy
-to use the included widgets in the admin view.
+**JQWAdminMixin**: A mixin for django.admin's ModelAdmin and InlineAdmin
+classes that make it easy to use the included widgets in the admin view.
 
 Example usage::
 
@@ -32,9 +54,9 @@ Example usage::
 
  class MyModelAdmin(JQWAdminMixin, admin.ModelAdmin):
       ...
-      # Use the ForeignKeyAutocompleteInput widget for the ForeignKey field
+      # Use the JQWAutocompleteFKSelect widget for the ForeignKey field #
       # 'user'. Let the lookup_fields be 'username' and 'email'. Use the
-      # AutocompleteInput widget for the IntegerField 'type'.
+      # JQWAutocompleteSelect widget for the IntegerField 'type'.
       jqw_autocomplete_fields = {
         'user': ('username', 'email'),
         'type': JQWAdminMixin.LOOKUP_CHOICES
@@ -46,6 +68,11 @@ doc string.
 **NB!** Make sure that you always place *JQWAdminMixin* **before**
 *admin.ModelAdmin*! If you don't do this, Python will use admin.ModelAdmin's
 *formfield_for_dbfield()* method, and nothing will work for you!
+
+
+**ExtendedModelAdmin**: This class is deprecated in favour of *JQWAdminMixin*,
+but is kept for bacward compability. It allows you to use
+*foreign_key_search_fields* instead of *jqw_autocomplete_fields*.
 
 Installation
 ============
@@ -92,10 +119,24 @@ not hardcoded in jquery_widgets!
   app. That means you can symlink or copy the static media into your
   STATIC_ROOT (needed for production only), by issuing::
 
-   $ python manage.py [-l] collectstatic
+   $ python manage.py -l collectstatic
 
 Note that you need to have 'django.contrib.staticfiles' in your INSTALLED_APPS
 for the above command to work. If you want to use this version of
 django-jquery-widgets with an older version of Django then 1.3, you have to
 manually copy the files from 'jqury_widgets/static' into your MEDIA_ROOT
 folder.
+
+Planned configuration parameters (not jet implemented)
+------------------------------------------------------
+
+Planned defaults::
+
+ # New themes can be added as:
+ # <STATIC_ROOT>/css/jquery-ui-themes/<theme name>/style.css
+
+ JQUERY_UI_THEME = {
+         'admin': 'ui-admin'       # Theme to use in django admin.
+         'default': 'ui-lightness' # Default theme for widgets.
+ }
+

@@ -17,6 +17,11 @@ __all__ = (
 	"JQWAutocompleteM2MSelectMultiple", "JQWRadioSelect", "JQWCheckboxSelect",
 )
 
+try:
+	ADMIN_MEDIA_PREFIX = settings.ADMIN_MEDIA_PREFIX
+except AttributeError:
+	ADMIN_MEDIA_PREFIX = '%sadmin/' % settings.STATIC_URL
+
 class JQWWidgetMixin(object):
 	"""Base mixin class for all jQuory UI based widgets.
 
@@ -27,8 +32,8 @@ class JQWWidgetMixin(object):
 	class Media:
 		css = {"all": ['THEME GOES HERE'],}
 		js = (
-			settings.ADMIN_MEDIA_PREFIX+"js/jquery.min.js",
-			settings.ADMIN_MEDIA_PREFIX+"js/jquery.init.js",
+			ADMIN_MEDIA_PREFIX+"js/jquery.min.js",
+			ADMIN_MEDIA_PREFIX+"js/jquery.init.js",
 			settings.STATIC_URL+"js/django.jquery.reinit.js",
 			settings.STATIC_URL+"js/jquery-ui.min.js",
 		)
@@ -204,3 +209,18 @@ class JQWRadioSelect(JQWSelectMixin, forms.RadioSelect):
 class JQWCheckboxSelect(JQWRadioSelect):
 	template = 'jquery_widgets/buttons_checkbox_select.html'
 	#TODO: Implement!
+
+
+class JQWSlider(forms.widgets.TextInput):
+	template = 'jquery_widgets/slider.html'
+	
+	def render(self, name, value, attrs=None):
+		min_val = attrs.get('min_value', self.attrs['min_value'])
+		return render_to_string(self.template, {
+			'min': min_val,
+			'max': attrs.get('max_value', self.attrs['max_value']),
+			'step': attrs.get('step', self.attrs['step']),
+			'value': value or min_val,
+			'name': name,
+			'id': attrs['id']
+		})

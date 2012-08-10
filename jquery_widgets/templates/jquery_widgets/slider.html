@@ -1,0 +1,20 @@
+
+<script>
+$(function() {
+	$( "#{{ id }}-range-max" ).slider({
+		range: "max",
+		min: {{ min }},
+		max: {{ max }},
+		value: {{ value }},
+		step: {{ step }},
+		slide: function( event, ui ) {
+			$( "#{{ id }}" ).val( ui.value );
+			$( "#{{ id }}valshower" ).html( ui.value );
+		}
+	});
+	$( "#{{ id }}" ).val( $( "#{{ id }}-range-max" ).slider( "value" ) );
+});
+</script>
+<input type="hidden" id="{{ id }}" name="{{ name }}"/>
+<div id="{{ id }}-range-max" class="slider"></div>
+<span id="{{ id }}valshower">{{ value }}</span>

@@ -17,6 +17,8 @@ class JQWSliderField(forms.IntegerField):
 		super(JQWSliderField, self).__init__(max_value, min_value, **kwargs)
 		
 	def widget_attrs(self, widget):
-		widget.min_value = self.min_value
-		widget.max_value = self.max_value
-		widget.step = self.step
+		widget.attrs.update({
+			'min_value': self.min_value,
+			'max_value': self.max_value,
+			'step': self.step
+		})

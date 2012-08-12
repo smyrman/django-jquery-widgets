@@ -1,8 +1,13 @@
-﻿Django jQuery Widgets Authors (http://github.com/smyrman/django-jquery-widgets)
-
+-------------------------------------------------
+Authors and contributors to django-jquery-widgets
+-------------------------------------------------
 Sindre Røkenes Myren (smyrman@gmail.com)
+Václav Klecanda (vencax@vxk.cz)
 
-jQuery UI Authors (http://jqueryui.com/about)
+-----------------
+jQuery UI Authors
+-----------------
+Source: http://jqueryui.com/about
 
 This software consists of voluntary contributions made by many
 individuals. For exact contribution history, see the revision history
